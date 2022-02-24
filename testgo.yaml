@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: testweb
+  name: testweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testweb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: testweb
+    spec:
+      containers:
+      - image: yansheng133/securitycontext:0.2
+        name: securitycontext
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: testweb
+  name: testweb
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: testweb
+  type: NodePort
+status:
+  loadBalancer: {}
